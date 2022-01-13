@@ -7,23 +7,21 @@ import "../styles/auth.scss";
 
 import { Button } from "../components/Button";
 
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { AuthContext } from "../contexts/AuthContext";
+import { useContext } from "react";
 
 export function Home() {
   const navigate = useNavigate();
+  const { user, signInWithGoogle } = useContext(AuthContext);
 
-  function handleCreateRoom() {
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log(auth.currentUser);
-      })
-      .catch((erro) => {
-        console.log(erro);
-      });
+  console.log({});
 
-    // navigate("/rooms/new");
+  async function handleCreateRoom() {
+    if (!user) {
+      await signInWithGoogle();
+    }
+
+    navigate("/rooms/new");
   }
 
   return (
@@ -52,4 +50,7 @@ export function Home() {
       </main>
     </div>
   );
+}
+function initialState(initialState: any): [any, any] {
+  throw new Error("Function not implemented.");
 }
