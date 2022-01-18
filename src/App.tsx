@@ -7,8 +7,11 @@ import { NewRoom } from "./pages/NewRoom";
 
 //auth
 import { AuthContextProvider } from "./contexts/AuthContext";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
+  const { user } = useAuth();
+
   return (
     <BrowserRouter>
       <AuthContextProvider>
@@ -22,6 +25,3 @@ function App() {
 }
 
 export default App;
-function Auth(auth: any, Auth: any) {
-  throw new Error("Function not implemented.");
-}

@@ -7,14 +7,11 @@ import "../styles/auth.scss";
 
 import { Button } from "../components/Button";
 
-import { AuthContext } from "../contexts/AuthContext";
-import { useContext } from "react";
+import { useAuth } from "../hooks/useAuth";
 
 export function Home() {
   const navigate = useNavigate();
-  const { user, signInWithGoogle } = useContext(AuthContext);
-
-  console.log({});
+  const { user, signInWithGoogle } = useAuth();
 
   async function handleCreateRoom() {
     if (!user) {
@@ -50,7 +47,4 @@ export function Home() {
       </main>
     </div>
   );
-}
-function initialState(initialState: any): [any, any] {
-  throw new Error("Function not implemented.");
 }
