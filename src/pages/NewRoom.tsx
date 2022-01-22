@@ -20,22 +20,20 @@ export function NewRoom() {
   const { user } = useAuth();
   const [newRoom, setNewRoom] = useState("");
 
-  useEffect(() => {
-    navigate("/rooms/:" + user?.id);
-  }, [newRoom]);
-
   async function handleCreateRoom(event: FormEvent) {
     event.preventDefault();
     if (newRoom.trim() === "") {
       return;
     }
 
-    const roomRef = ref(database, "rooms");
+    const roomRef = ref(database, "/rooms/");
 
-    await push(roomRef, {
+    const room = await push(roomRef, {
       title: newRoom,
       authorId: user?.id,
     });
+
+    navigate(`/rooms/${room.key}`);
   }
 
   return (
